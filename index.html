@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐱‍👤 Tzvika's Meme-Generator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body onload="init()">
+
+  <nav class="main-header">
+        <ul class="main-nav clean-list flex align-center space-around">
+            <li class="logo"><img src="../img/logo.png" alt=""></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Memes</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav> 
+    <!-- <section>
+        Search
+    <div class="tags">tags</div>
+    </section> -->
+    <div class="main">
+        <h1>MeM-Rageshi</h1>
+        <div class="meme-edit" id="editplace">
+            <div class="canvas-container">
+                <canvas id="my-canvas" height="700" width="700"></canvas>
+            </div>
+            <div class="editor" >
+                <h2> משפט עוצמתי</h2>
+                <input type="text" class="inputtext" placeholder="משהו מרגשי" id="text1"
+                oninput="onTypedLine(value)">
+                <section class="controllers-1">
+                    <input class="btn-editor" onclick="onAddLine()" type="image" src="/icons/add.png" />
+                    <input class="btn-editor" onclick="onSwitchLine()" type="image" src="/icons/switch.png" />
+                    <input class="btn-editor" onclick="onDeleteLine()" type="image" src="/icons/trash.png" />
+                </section>
+                <section class="controllers-2">
+                    <input class="btn-editor" onclick="onMoveText(+10)" type="image" src="/icons/down-arrow.png" />
+                    <input class="btn-editor" onclick="onMoveText(-10)" type="image" src="/icons/up-arrow.png" />
+                    <input class="btn-editor" onclick="OnchangeFontSize(+5)" type="image"
+                        src="../icons/increase font - icon.png" />
+                    <input class="btn-editor" onclick="OnchangeFontSize(-5)" type="image"
+                        src="../icons/decrease font - icon.png" />
+                </section>
+                <section class="controllers-3">
+                    <label for="colorf"><img class="color-btn color-font" src="../icons/paint-board-and-brush.png"
+                            alt="Font color"></label>
+                    <input type="color" id="colorf" name="favcolor" oninput="onFColorChange(value)" value="#ff0000">
+                    <label for="colors"><img class="color-btn colors" src="../icons/text-stroke.png"
+                            alt="Stroke color"></label>
+                    <input type="color" id="colors" name="favcolor" oninput="onSColorChange(value)" value="#ff0000">
+                    <input class="btn-editor" onclick="onAlign('left')" type="image" src="../icons/align-to-left.png" />
+                    <input class="btn-editor" onclick="onAlign('center')" type="image"
+                        src="../icons/center-text-alignment.png" />
+                    <input class="btn-editor" onclick="onAlign('right')" type="image"
+                        src="../icons/align-to-right.png" />
+                    <section class="controllers-4">
+                        <label for="items">Fonts:</label>
+                        <select id="items" onchange="onFontSelect(value)">
+                            <option value="Impact">Impact</option>
+                            <option value="Ariel">Ariel</option>
+                            <option value="Arimo">Arimo</option>
+                            <option value="Nerko One">Nerko One</option>
+                            <option value="SecularOne">Secular One</option>
+                        </select>
+                        <section class="buttons">
+                            <a href="#" class="btn" onclick="downloadCanvas(this)" download="">Download</a>
+                        </section>
+
+
+                    </section>
+
+            </div>
+            </section>
+
+
+        </div>
+    </div>
+    </div>
+    <h1 class="gallery-title"> Lesson Qeue</h1>
+    <section class="gallery">
+    </section>
+
+    <footer>MVP it is no coffeerights for you!</footer>
+    <!-- <script src="js/main.js"></script> -->
+    <script src="js/meme-controller.js"></script>
+    <script src="js/meme-service.js"></script>
+    <!-- <script src="js/local-storage.js"></script> -->
+</body>
+
+</html>

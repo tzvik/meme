@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\18-28\\Day28-Canvas\\Tzvika-Canvas"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\Sprint2-utils\\‏canvas"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\Sprint2-utils\\CR-book-shop"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\Sprint2-utils\\inClass-Cars-CRUD -startHere"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Tzvikas-meme"
+	}
+}
