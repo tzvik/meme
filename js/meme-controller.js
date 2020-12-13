@@ -1,3 +1,4 @@
+'use strict'
 var gCanvas;
 var gCtx;
 
@@ -9,28 +10,33 @@ function init() {
     renderImgs()
 }
 
+function canvasClicked(ev) {
+    // console.log('ev',ev,'ofx',ev.offsetX,'y',ev.offsetY)
+}
 
 function renderMeme() {
     var curMeme = getMeme()
     var imgId = curMeme.selectedImgId
     var img = new Image();
-    var show = getImageById(imgId)
-    img.src = show.url;
-    console.log('src', img.src)
+    var imgDisplay = getImageById(imgId)
+    img.src = imgDisplay.url;
+    // console.log('src', img.src)
     img.onload = () => {
-        console.log('width', img.src.width)
-        console.log('height', img.src.height)
+        gCanvas.width = img.width
+        gCanvas.height = img.height
+        // console.log('height', img.height)
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height) //img,x,y,xend,yend
         if (curMeme.lines.length > 0) {
             var linePos = getLinePos(curMeme.selectedLineIdx)
             // console.log('before',gMeme.selectedLineIdx)
             var textLength = curMeme.lines[curMeme.selectedLineIdx].txt.length
             var width = textLength * getFontSize()
-            drawRect(linePos.x, linePos.y, width)
+            // console.log('x',linePos.x,'y', linePos.y)
             curMeme.lines.forEach(function (line, idx) {
                 var linePos = getLinePos(idx)
                 drawText(line.txt, linePos.x, linePos.y, line.size, line.align, line.color, line.strokeColor, line.font);
             })
+            drawRect(linePos.x, linePos.y, width)
         }
     }
 }
@@ -55,9 +61,9 @@ function onTypedLine(input) {
     renderMeme()
 }
 
-function onImageClicked(ev) {
-    imageClicked(ev)
-    var elMemeEdit = document.querySelector('.meme-edit');
+function onImageClicked(imgId) {
+    imageClicked(imgId)
+    const elMemeEdit = document.querySelector('.meme-edit');
     elMemeEdit.style.display = 'block'
     elMemeEdit.style.display = 'grid'
     renderMeme()
@@ -69,8 +75,8 @@ function onFontSelect(font) {
 
 }
 
-function OnchangeFontSize(ev) {
-    changeFontSize(ev)
+function onChangeFontSize(fontSize) {
+    changeFontSize(fontSize)
     renderMeme()
 }
 
@@ -92,8 +98,8 @@ function onAlign(align) {
     renderMeme()
 }
 
-function onMoveText(ev) {
-    moveText(ev)
+function onMoveText(diff) {
+    moveText(diff)
     renderMeme()
 }
 
@@ -124,14 +130,17 @@ function drawText(text, x, y, size, align, color, strockC, font) {
     gCtx.lineWidth = '1.5'
     gCtx.strokeStyle = strockC
     gCtx.fillStyle = color
-    var textsize = size
-    var font = font
+    const textsize = size
+    // var font = font
     // console.log ('getFont',getFont ())
     gCtx.font = textsize + 'px ' + font;
     gCtx.textAlign = align // 'left'
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
+    const gTextSize = gCtx.measureText(text);
+    return console.log('textSize',gTextSize.width)
 }
+
 
 
 
@@ -159,12 +168,17 @@ function clearCanvas() {
 }
 
 
+
 function downloadCanvas(elLink) {
+    // removeSelectedMark()
+    // renderMeme()
     const data = gCanvas.toDataURL();
-    // console.log(data)
+    console.log(data)
     elLink.href = data;
-    elLink.download = 'my-img.jpg';
-}
+    elLink.download = 'Meme.jpg';
+    resetSelectedLine ()
+  }
+
 
 
 function downloadImg(elLink) {
@@ -172,23 +186,28 @@ function downloadImg(elLink) {
     elLink.href = 'data:image/gif;base64,' + imgContent
 }
 
-function canvasClicked(ev) {
-    // find out if clicked inside of star chart
-    // var offsetX = ev.offsetX;
-    // var offsetY = ev.offsetY;
+// function downloadImg(elLink) {
+//     var imgContent = gCanvas.toDataURL('image/jpeg');
+//     elLink.href = imgContent
+// }
 
-    var { offsetX, offsetY } = ev;
-    // console.log(offsetX, offsetY)
+// function canvasClicked(ev) {
+//     // find out if clicked inside of star chart
+//     // var offsetX = ev.offsetX;
+//     // var offsetY = ev.offsetY;
 
-    var clickedStar = gStars.find(star => {
-        return offsetX >= star.x && offsetX <= star.x + gBarWidth
-            && offsetY >= star.y && offsetY < gCanvas.height
-    })
-    // console.log(clickedStar)
+//     var { offsetX, offsetY } = ev;
+//     // console.log(offsetX, offsetY)
 
-    // open the modal on the clicked coordinates if found a click on a star,
-    // close the modal otherwise
-    if (clickedStar) openModal(clickedStar.name, clickedStar.rate, ev.clientX, ev.clientY)
-    else closeModal()
+//     var clickedStar = gStars.find(star => {
+//         return offsetX >= star.x && offsetX <= star.x + gBarWidth
+//             && offsetY >= star.y && offsetY < gCanvas.height
+//     })
+//     // console.log(clickedStar)
 
-}
+//     // open the modal on the clicked coordinates if found a click on a star,
+//     // close the modal otherwise
+//     if (clickedStar) openModal(clickedStar.name, clickedStar.rate, ev.clientX, ev.clientY)
+//     else closeModal()
+
+// }

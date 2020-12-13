@@ -71,6 +71,11 @@ var gImgs = [{
     url: 'img/12.jfif',
     keywords: ['Poki','Merageshi','Muki','Ozmati']
 },
+{
+    id: 13,
+    url: 'img/13.png',
+    keywords: ['Poki','Merageshi','Muki','Ozmati']
+},
 
 ];
 
@@ -79,38 +84,18 @@ var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
     lines: [{
-        txt: 'Type here',
+        txt: 'תכתוב משו',
         size: 40,
         align: 'left',
         color: 'white',
         strokeColor: 'black',
-        font: 'Impact',
+        font: 'Suez One',
         pos: {
-            x: 225,
+            x: 125,
             y: 125,
         }
     },
-    // {
-    //     txt: 'Type here',
-    //     size: 40,
-    //     align: 'left',
-    //     color: 'red',
-    //     pos: {
-    //         x: 225,
-    //         y: 625,
-    //     }
-    // },
-    // {
-    //     txt: 'Type here',
-    //     size: 40,
-    //     align: 'left',
-    //     color: 'red',
-    //     pos: {
-    //         x: 225,
-    //         y: 350,
-    //     }
-    // }
-    ]
+     ]
 }
 
 var gMoveY = gMeme.lines[gMeme.selectedLineIdx].pos.y
@@ -118,7 +103,7 @@ var gMoveY = gMeme.lines[gMeme.selectedLineIdx].pos.y
 // CREATE
 
 function addLine() {
-    var line = createLine()
+    const line = createLine()
     gMeme.lines.push(line)
 }
 
@@ -132,36 +117,36 @@ function createLine() {
             align: 'left',
             color: 'white',
             strokeColor: 'black',
-            font: 'Impact',
+            font: 'Suez One',
             pos: {
-                x: 225,
+                x: 125,
                 y: 125,
             }
         }
     } if (gMeme.lines.length === 1) {
         return {
-            txt: 'Type here',
+            txt: 'עוד משו',
             size: 40,
             align: 'left',
             color: 'white',
             strokeColor: 'black',
-            font: 'Impact',
+            font: 'Suez One',
             pos: {
-                x: 225,
-                y: 625,
+                x: 125,
+                y: 415,
             }
         }
     } if (gMeme.lines.length > 1 ) {
         gMoveY = gMoveY + 30
         return {
-            txt: 'Type here',
+            txt: 'ככה',
             size: 40,
             align: 'left',
             color: 'white',
             strokeColor: 'black',
-            font: 'Impact',
+            font: 'Suez One',
             pos: {
-                x: 225,
+                x: 125,
                 y: gMoveY,
             }
         }
@@ -181,42 +166,32 @@ function getImageById(imgId) {
 
 
 
-
-
-// UPDATE
 function getImgs() {
     return gImgs
 }
 
-function imageClicked(ev) {
-    gMeme.selectedImgId = +ev;
+function imageClicked(imgId) {
+    gMeme.selectedImgId = +imgId;
    
     // return gMeme.selectedImgId
 }
 
 
-function moveText(ev) {
+function moveText(diff) {
     var idx = gMeme.selectedLineIdx;
-    gMeme.lines[idx].pos.y += ev
+    gMeme.lines[idx].pos.y += diff
 
 }
 
 // Update gMeme with user Input 
 
-
-
-
-
-
-
-function typedLine(value) {
+function typedLine(txtInp) {
     var idx = gMeme.selectedLineIdx
-    gMeme.lines[idx].txt = value;
+    gMeme.lines[idx].txt = txtInp;
 
 }
-function changeFontSize(ev) {
+function changeFontSize(fontSize) {
     var idx = gMeme.selectedLineIdx
-    var fontSize = ev
     gMeme.lines[idx].size += fontSize;
 }
 
@@ -237,15 +212,13 @@ function alignChange (align) {
     var idx = gMeme.selectedLineIdx
     var alignText = align
     gMeme.lines[idx].align = alignText
-    console.log('align', gMeme.lines[idx].align)
 
 }
 
 
 function fontSelect(font) {
-    var idx = gMeme.selectedLineIdx
-    var fontType = font
-    gMeme.lines[idx].font = fontType
+    const idx = gMeme.selectedLineIdx
+    gMeme.lines[idx].font = font
 }
 
 function deleteLine() {
@@ -296,7 +269,7 @@ function getFontSize() {
 
 
 function switchLine() {
-    if (gMeme.lines.length === 1) {
+    if (gMeme.lines.length === 1 || gMeme.selectedLineIdx === gMeme.lines.length-1) {
         gMeme.selectedLineIdx = 0
         return
     }
@@ -305,16 +278,23 @@ function switchLine() {
 
         return
     }
-    if (gMeme.selectedLineIdx === gMeme.lines.length-1) {
-        gMeme.selectedLineIdx = 0
-        return
-    }
 }
 
-function changeSelectedLineIdx(value) {
-   gMeme.selectedLineIdx += value
+function resetSelectedLine () {
+    gMeme.selectedLineIdx = 0
 }
 
+function changeSelectedLineIdx(diff) {
+   gMeme.selectedLineIdx += diff
+}
+function getSelectedLine (){
+    var selectedLine = gMeme.selectedLineIdx ;
+    return selectedLine
+}
+
+function removeSelectedMark(){
+    gMeme.selectedLineIdx = -1
+}
 
 // READ
 function getMeme() {
